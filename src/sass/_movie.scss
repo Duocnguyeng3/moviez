@@ -1,0 +1,59 @@
+.movie {
+    background-color: $color-primary-dark;
+&__fig {
+    height: 42rem;
+    position: relative;
+    /* transform: scale(1.04) translateY(-1px); */
+    transform-origin: top;
+
+    &::before {
+        content: '';
+        display: block;
+        height: 100%;
+        width: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        background-image: $gradient;
+        opacity: 0.5;
+        }
+    }
+  
+  &__img {
+    width: 100%;
+    display: block;
+    height: 100%;
+    object-fit: cover;
+  }
+  &__title {
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translate(-50%, 20%) skewY(-6deg);
+      color: $color-grey-light-1;
+      font-weight: 700;
+      font-size: 3.25rem;
+      text-transform: uppercase;
+      width: 50%;
+      line-height: 1.95;
+      text-align: center;
+  }
+  &__title span {
+        -webkit-box-decoration-break: clone;
+        box-decoration-break: clone;
+        padding: 1.3rem 2rem;
+        background-image: $gradient;
+  }
+  &__description {
+    padding: 2rem;
+    color: $color-grey-light-1;
+  }
+  &__release-date {
+    font-size: 1.6rem;
+    text-transform: uppercase;
+    font-weight: 600;
+  }
+  &__overiew {
+    font-size: 1.6rem;
+  }   
+}

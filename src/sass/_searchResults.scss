@@ -1,0 +1,17 @@
+.search-results {
+  padding: 3rem 0;
+  display: flex;
+  flex-direction: column;
+  overflow-y: scroll;
+  max-height: 117rem;
+  background-color: #1d1a26;
+}
+
+.results {
+  list-style: none;
+  margin-bottom: 2rem;
+}
+
+.search-results::-webkit-scrollbar {
+ width: 0;
+}
