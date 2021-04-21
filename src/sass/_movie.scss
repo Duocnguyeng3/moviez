@@ -1,6 +1,7 @@
 .movie {
     background-color: $color-primary-dark;
-&__fig {
+    color: $color-grey-light-1;
+  &__fig {
     height: 42rem;
     position: relative;
     /* transform: scale(1.04) translateY(-1px); */
@@ -30,7 +31,6 @@
       bottom: 0;
       left: 50%;
       transform: translate(-50%, 20%) skewY(-6deg);
-      color: $color-grey-light-1;
       font-weight: 700;
       font-size: 3.25rem;
       text-transform: uppercase;
@@ -44,16 +44,80 @@
         padding: 1.3rem 2rem;
         background-image: $gradient;
   }
-  &__description {
-    padding: 2rem;
-    color: $color-grey-light-1;
-  }
   &__release-date {
     font-size: 1.6rem;
     text-transform: uppercase;
     font-weight: 600;
   }
   &__overiew {
-    font-size: 1.6rem;
+    font-size: 1.5rem;
+    color: $color-grey-light-3;
   }   
+
+  &__home-page {
+    color: $color-grey-light-3;
+    display: block;
+    width: 15rem;
+    margin-left: auto;
+    text-align: center;
+  }
+}
+.movie__description {
+  padding: 4rem;
+  font-size: 1.6rem;
+  position: relative;
+  &-box {
+    display: flex;
+    margin-bottom: 1rem;
+
+    &--key {
+      min-width: 14rem;
+      color: $color-grey-dark-2;
+      text-transform: uppercase;
+    }
+    &--value {
+      
+    }
+  }
+}
+.movie__heading {
+  margin-bottom: 1rem;
+}
+
+.cast__container {
+  margin: 2rem auto;
+}
+.cast {
+  overflow-x: auto;
+  max-width: 70rem;
+  list-style: none;
+  display: flex;
+  font-size: 1.3rem;
+
+  &::-webkit-scrollbar {
+    width: 0rem;
+  }
+
+  &__item {
+    margin: .5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    min-width: 10rem;
+  }
+  
+  &__img {
+    width: 8rem;
+    height: 8rem;
+    object-fit: cover;
+    border-radius: 50%;
+  }
+
+  &__name {
+
+  }
+  &__character {
+    color:  $color-grey-dark-2;
+  }
 }

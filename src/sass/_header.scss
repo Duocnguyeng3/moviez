@@ -90,7 +90,7 @@
     svg {
       height: 2.4rem;
       width: 2.4rem;
-      fill: $color-primary;
+      fill: $color-emphasize;
       margin-right: 0.7rem;
       transform: translateY(-1px);
     }
@@ -100,8 +100,7 @@
     }
 
     &:hover {
-      background-color: $color-grey-dark-2;
-    //   background-color: red;
+      background-color: $color-grey-dark-1;
     }
   }
 }
@@ -113,13 +112,17 @@
     right: -2.5rem;
     z-index: 10;
     width: 40rem;
-    background-color: #fff;
+    background-color: $color-primary-dark;
     box-shadow: 0 0.8rem 5rem 2rem rgba($color-grey-dark-1, 0.1);
   
     visibility: hidden;
     opacity: 0;
     transition: all 0.5s 0.2s;
   
+    svg {
+      fill: #fff;
+    }
+
     &__list {
       list-style: none;
     }
