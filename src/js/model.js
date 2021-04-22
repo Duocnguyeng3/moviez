@@ -1,13 +1,16 @@
-import { BASE_URL, API_KEY, BASE_IMG_URL, POSTER_SIZE } from './config.js';
+import { BASE_URL, API_KEY, BASE_IMG_URL, POSTER_SIZE, BACKDROP_SIZE, CAST_SIZE, CAST_NUMBER } from './config.js';
 import { getJSON } from './helpers.js';
 
 import { async } from "regenerator-runtime"
 import 'regenerator-runtime/runtime';
 import 'core-js/stable';
 
+import noAvatarPath from '../img/no_avatar.png';
+
 export const state = {
     movie: {},
     search: {
+        query: '',
         results: [],
         page: 1
     },
@@ -18,12 +21,12 @@ const getGenre = function (id) {
     return name;
 }
 
-export const loadSearchResult = async function (query) {
+export const loadSearchResult = async function (query = state.search.query, page = state.search.page) {
     try {
-        const data = await getJSON(`${BASE_URL}/search/movie?api_key=${API_KEY}&query=${query}`);
-        console.log(data);
+        state.search.query = query;
+        const data = await getJSON(`${BASE_URL}/search/movie?api_key=${API_KEY}&query=${query}&page=${page}`);
         state.search.page = data.page;
-        state.search.totalPage = data.total_pages;
+        state.search.totalPages = data.total_pages;
 
         state.search.results = data.results.map(result => {
             if (result.poster_path && result.backdrop_path) return {
@@ -35,7 +38,54 @@ export const loadSearchResult = async function (query) {
                 overview: result.overview
             }
         }).filter(result => result);
-        console.log(state);
+    } catch (err) {
+        console.log(err);
+        throw err;
+    }
+}
+
+const getCast = async function (id) {
+    try {
+        const data = await getJSON(`${BASE_URL}/movie/${id}/credits?api_key=${API_KEY}`);
+        if (!data) return;
+
+        // get maximum CAST_NUMBER of casts
+        const casts = data.cast.length > CAST_NUMBER ? data.cast.slice(0, CAST_NUMBER) : data.cast;
+
+        // get essential information from return image Object
+        const cast = casts.map(function (cast) {
+            return {
+                name: cast.name,
+                character: cast.character,
+                profileImg: cast.profile_path ? `${BASE_IMG_URL}${CAST_SIZE}${cast.profile_path}` : noAvatarPath
+            }
+        });
+        return cast;
+    } catch (err) {
+        console.log(err);
+
+        // If error to fetch the cast, return an empty array
+        return [];
+    }
+}
+
+export const loadMovie = async function (id) {
+    try {
+        const data = await getJSON(`${BASE_URL}/movie/${id}?api_key=${API_KEY}`);
+        const cast = await getCast(id);
+
+        // push movie infomation to State
+        state.movie = {
+            id: data.id,
+            runtime: data.runtime,
+            language: data.spoken_languages.map(ele => ele.name).join(', '),
+            releaseDate: data.release_date,
+            overview: data.overview,
+            homepage: data.homepage,
+            backdrop: `${BASE_IMG_URL}${BACKDROP_SIZE}${data.backdrop_path}`,
+            title: data.title,
+            cast: cast
+        };
     } catch (err) {
         console.log(err);
         throw err;

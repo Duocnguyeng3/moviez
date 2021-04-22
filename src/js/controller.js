@@ -5,7 +5,10 @@ import icons from '../img/icons.svg';
 import { BASE_URL, API_KEY } from './config.js';
 import searchView from './Views/searchView.js';
 import resultsView from './Views/resultsView.js';
-import * as model from './model.js';;
+import movieView from './Views/movieView.js';
+import paginationView from './Views/paginationView.js';
+import * as model from './model.js';
+
 
 
 // fetch detail from a movie
@@ -42,74 +45,63 @@ const movieContainer = document.querySelector('.movie')
 
 // src="https://image.tmdb.org/t/p/w92${result.poster_path}"
 
-const generateMarkupMovie = function (data) {
-  return `
-  <figure class="movie__fig">
-  <img src="https://image.tmdb.org/t/p/w780${data.backdrop_path}" alt="Tomato" class="movie__img" />
-  <h1 class="movie__title">
-    <span>${data.title}</span>
-  </h1>
-</figure>
-
-<div class="movie__description">
-  <div class="movie__release-date">
-  ${data.release_date}
-  </div>
-  <p class="movie__overiew">
-  ${data.overview}
-  </p>
-</div>
-    `
-}
-
-const getSearchResult = async function (e) {
+const getSearchResult = async function () {
   try {
-    e.preventDefault();
     resultsView.renderSpinner();
     // 1.get Search query
     const query = searchView.getQuery();
     if (!query) return;
 
+    // load search result in model
     await model.loadSearchResult(query);
     const results = model.state.search.results;
 
+    // Render the result base on infomation in model.js
     const markup = resultsView.render(results);
+
+    // Render the pagination
+    model.state.search.page = 1;
+    paginationView.render(model.state.search);
   } catch (err) {
-    console.log(err);
+    console.error(err);
   }
 }
 
 const getMovie = async function () {
-  const id = window.location.hash.slice(1);
-  if (!id) return;
-  const res = await fetch(`${BASE_URL}/movie/${id}?api_key=${API_KEY}`);
-  const data = await res.json();
-  const markup = generateMarkupMovie(data);
+  try {
+    movieView.renderSpinner();
 
-  movieContainer.innerHTML = '';
-  movieContainer.insertAdjacentHTML('afterbegin', markup);
+    // get the id of the movie 
+    const id = window.location.hash.slice(1);
+    if (!id) return;
+
+    // Load the movie in model
+    await model.loadMovie(id);
+    const data = model.state.movie;
+
+    movieView.render(data);
+
+  } catch (err) {
+    console.error(err);
+    movieView.renderError(err.message);
+  }
 }
+
+const controlPagination = async function (goToPage) {
+  model.state.search.page = goToPage;
+  await model.loadSearchResult();
+  const results = model.state.search.results;
+
+  // Render the result base on infomation in model.js
+  const markup = resultsView.render(results);
+  // Render the pagination
+  paginationView.render(model.state.search);
+}
+
 
 const ini = function () {
-  ['hashchange', 'load'].forEach(e => window.addEventListener(e, getMovie));
-  search.addEventListener('submit', getSearchResult);
+  movieView.addHandlerRender(getMovie);
+  searchView.addHandlerSearch(getSearchResult);
+  paginationView.addHandlerPage(controlPagination);
 }
 ini();
-
-// SEARCH WITH KEYWORD RESPONSE OBJECT FORMAT
-/*
- adult: false
- backdrop_path: "/rr7E0NoGKxvbkb89eR1GwfoYjpA.jpg"
- genre_ids: Array(1)
- id: 550
- original_language: "en"
- original_title: "Fight Club"
- overview: "A ticking-time-bomb insomniac and a slippery soap salesman channel primal male aggression into a shocking new form of therapy. Their concept catches on, with underground "fight clubs" forming in every town, until an eccentric gets in the way and ignites an out-of-control spiral toward oblivion."
- popularity: 45.409
- poster_path: "/8kNruSfhk5IoE4eZOc4UpvDn6tq.jpg"
- release_date: "1999-10-15"
- title: "Fight Club"
- video: false
- vote_average: 8.4
- vote_count: 21541
- */

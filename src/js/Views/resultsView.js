@@ -1,14 +1,15 @@
 import View from './View.js';
 
 class resultsView extends View {
-    _parentElement = document.querySelector('.results');
+  _parentElement = document.querySelector('.results');
+  _errorMessage = 'We could not find any movie, please try again';
 
-    _generateMarkup() {
-        return this._data.map(this._generateMarkupPreview).join('');
-    }
+  _generateMarkup() {
+    return this._data.map(this._generateMarkupPreview).join('');
+  }
 
-    _generateMarkupPreview(result) {
-        return `
+  _generateMarkupPreview(result) {
+    return `
     <li class="preview">
     <a class="preview__link" href="#${result.id}">
       <figure class="preview__figure">
@@ -23,7 +24,7 @@ class resultsView extends View {
     </a>
   </li>
     `
-    }
+  }
 }
 
 export default new resultsView();
