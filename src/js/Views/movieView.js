@@ -1,4 +1,5 @@
 import View from './View.js';
+// import icons from '../../img/icons.svg';
 import icons from '../../img/icons.svg';
 
 class movieView extends View {

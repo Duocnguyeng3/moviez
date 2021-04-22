@@ -2,9 +2,10 @@
   "name": "moviez",
   "version": "1.0.0",
   "description": "",
-  "default": "index.html",
+  "main": "index.html",
   "scripts": {
-    "start": "parcel index.html"
+    "start": "parcel index.html",
+    "build": "parcel build index.html --out-dir ./dist"
   },
   "repository": {
     "type": "git",
