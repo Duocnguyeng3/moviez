@@ -4,8 +4,9 @@ class searchView extends View {
     _parentElement = document.querySelector('.search');
 
     getQuery() {
-        this._parentElement.state.focus = 'false';
-        return this._parentElement.value;
+        const query = this._parentElement.querySelector('.search__field').value;
+        this._parentElement.querySelector('.search__field').blur();
+        return query;
     }
 }
 

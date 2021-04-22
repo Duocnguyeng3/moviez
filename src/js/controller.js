@@ -1,8 +1,12 @@
-import { BASE_URL, API_KEY } from './config.js';
-import searchView from './Views/searchView.js';
-
 import 'regenerator-runtime/runtime';
 import 'core-js/stable';
+
+import icons from '../img/icons.svg';
+import { BASE_URL, API_KEY } from './config.js';
+import searchView from './Views/searchView.js';
+import resultsView from './Views/resultsView.js';
+import * as model from './model.js';;
+
 
 // fetch detail from a movie
 // https://api.themoviedb.org/3/movie/550?api_key=e616cd78f7df65758287d12dbeae7d4a
@@ -36,29 +40,7 @@ const search = document.querySelector('.search');
 const resultsContainer = document.querySelector('.results')
 const movieContainer = document.querySelector('.movie')
 
-const getGenre = function (id) {
-  const name = movieGenres.find(ele => ele.id === id).name;
-  return name;
-}
-
 // src="https://image.tmdb.org/t/p/w92${result.poster_path}"
-const generateMarkupResult = function (result) {
-  return `
-    <li class="preview">
-    <a class="preview__link" href="#${result.id}">
-      <figure class="preview__figure">
-        <img class="preview__poster" src=${result.poster_path ? `https://image.tmdb.org/t/p/w154${result.poster_path}` : `src/img/no_poster.png`} />
-      </figure>
-      <div class="preview__description">
-        <h4 class="preview__title">${result.title}</h4>
-        <p class="preview__rating"><span>⭐</span>${result.vote_average}</p>
-        <p class="preview__genre">${result.genre_ids.map(getGenre).join(', ')}</p>
-        <p class="preview__overiew">${result.overview.slice(0, 100)}...</p>
-      </div>
-    </a>
-  </li>
-    `
-}
 
 const generateMarkupMovie = function (data) {
   return `
@@ -80,17 +62,21 @@ const generateMarkupMovie = function (data) {
     `
 }
 
-
 const getSearchResult = async function (e) {
-  e.preventDefault();
-  const query = document.querySelector('.search__field').value;
-  const res = await fetch(`${BASE_URL}/search/movie?api_key=${API_KEY}&query=${query}`);
-  const data = await res.json();
-  const results = data.results;
-  const markup = results.map(generateMarkupResult).join('');
+  try {
+    e.preventDefault();
+    resultsView.renderSpinner();
+    // 1.get Search query
+    const query = searchView.getQuery();
+    if (!query) return;
 
-  resultsContainer.innerHTML = '';
-  resultsContainer.insertAdjacentHTML('afterbegin', markup);
+    await model.loadSearchResult(query);
+    const results = model.state.search.results;
+
+    const markup = resultsView.render(results);
+  } catch (err) {
+    console.log(err);
+  }
 }
 
 const getMovie = async function () {
@@ -127,27 +113,3 @@ ini();
  vote_average: 8.4
  vote_count: 21541
  */
-
-// genres ID
-
-const movieGenres = [
-  { "id": 28, "name": "Action" },
-  { "id": 12, "name": "Adventure" },
-  { "id": 16, "name": "Animation" },
-  { "id": 35, "name": "Comedy" },
-  { "id": 80, "name": "Crime" },
-  { "id": 99, "name": "Documentary" },
-  { "id": 18, "name": "Drama" },
-  { "id": 10751, "name": "Family" },
-  { "id": 14, "name": "Fantasy" },
-  { "id": 36, "name": "History" },
-  { "id": 27, "name": "Horror" },
-  { "id": 10402, "name": "Music" },
-  { "id": 9648, "name": "Mystery" },
-  { "id": 10749, "name": "Romance" },
-  { "id": 878, "name": "Science Fiction" },
-  { "id": 10770, "name": "TV Movie" },
-  { "id": 53, "name": "Thriller" },
-  { "id": 10752, "name": "War" },
-  { "id": 37, "name": "Western" }
-]
