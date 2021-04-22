@@ -47,10 +47,10 @@ const movieContainer = document.querySelector('.movie')
 
 const getSearchResult = async function () {
   try {
-    resultsView.renderSpinner();
     // 1.get Search query
     const query = searchView.getQuery();
     if (!query) return;
+    resultsView.renderSpinner();
 
     // load search result in model
     await model.loadSearchResult(query);
@@ -69,11 +69,11 @@ const getSearchResult = async function () {
 
 const getMovie = async function () {
   try {
-    movieView.renderSpinner();
 
     // get the id of the movie 
     const id = window.location.hash.slice(1);
     if (!id) return;
+    movieView.renderSpinner();
 
     // Load the movie in model
     await model.loadMovie(id);
@@ -98,6 +98,14 @@ const controlPagination = async function (goToPage) {
   paginationView.render(model.state.search);
 }
 
+const getVideo = async function (goToPage) {
+  try {
+
+
+  } catch (err) {
+
+  }
+}
 
 const ini = function () {
   movieView.addHandlerRender(getMovie);

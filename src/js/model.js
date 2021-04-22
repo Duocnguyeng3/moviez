@@ -92,6 +92,18 @@ export const loadMovie = async function (id) {
     }
 }
 
+export const loadVideo = async function () {
+    try {
+        const data = await getJSON(`${BASE_URL}/movie/${id}/video?api_key=${API_KEY}`);
+        const videos = await getCast(id);
+
+
+    } catch (err) {
+        console.log(err);
+        throw err;
+    }
+}
+
 /*
 page: 1
 results: (20) [{…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}]
