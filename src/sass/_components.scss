@@ -35,7 +35,30 @@
       fill: currentColor;
     }
   }
+  .btn--text {
+    &,
+    &:link,
+    &:visited {
+      text-decoration: none;
+      padding: .2rem;
+      border-radius: 0;
+      background-image: $gradient-emphasize;
+      transform: skewX(-20deg);
+      display: inline-block;
+      margin-top: 2rem;
+      margin-right: 2rem;
+      color: $color-grey-light-2;
+      cursor: pointer;
+      box-shadow: 0 .5rem .5rem rgba(#000, 0.3);
+    }
+    &:hover {
+      transform: skewX(-20deg) scale(1.05);
+    }
   
+    &:focus {
+      outline: none;
+    }
+  }
   .btn--small {
     &,
     &:link,
@@ -55,6 +78,7 @@
     }
   }
   
+
   .btn--inline {
     color: $color-primary;
     font-size: 1.3rem;
@@ -91,7 +115,7 @@
   }
   
   .btn--round {
-    background-image: $gradient;
+    background-image: $gradient-emphasize;
     border-radius: 50%;
     border: none;
     cursor: pointer;
@@ -115,7 +139,7 @@
     svg {
       height: 2.5rem;
       width: 2.5rem;
-      fill: #fff;
+      fill: $color-grey-light-2;
     }
   }
   
@@ -212,3 +236,8 @@
     }
   }
   
+  .movie__bookmark-btn {
+    position: absolute;
+    right: 4rem;
+    top: 4rem;
+  }

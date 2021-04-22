@@ -1,6 +1,8 @@
 // $color-primary: #f59a83;
 $color-primary: #13272b;
 $color-primary-dark: #1d1a26;
+$color-emphasize: #f84040;
+$color-emphasize-dark: #a80606;
 $color-grad-1: #693e40;
 $color-grad-2: #13272b;
 
@@ -11,6 +13,7 @@ $color-grey-dark-1: #615551; // Normal text
 $color-grey-dark-2: #918581; // Lighter text
 
 $gradient: linear-gradient(to right bottom, $color-grad-1, $color-grad-2);
+$gradient-emphasize: linear-gradient(to right bottom, $color-emphasize, $color-emphasize-dark);
 
 $bp-large: 78.15em; // 1250px
 $bp-medium: 61.25em; // 980px
