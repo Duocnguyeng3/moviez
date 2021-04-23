@@ -92,11 +92,13 @@ export const loadMovie = async function (id) {
     }
 }
 
-export const loadVideo = async function () {
-    try {
-        const data = await getJSON(`${BASE_URL}/movie/${id}/video?api_key=${API_KEY}`);
-        const videos = await getCast(id);
 
+export const loadVideo = async function (id) {
+    try {
+        const data = await getJSON(`${BASE_URL}/movie/${id}/videos?api_key=${API_KEY}`);
+        const videos = data.results;
+
+        state.movie.videos = videos.filter(video => video.site === "YouTube");
 
     } catch (err) {
         console.log(err);

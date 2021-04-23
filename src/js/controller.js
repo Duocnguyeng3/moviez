@@ -7,6 +7,7 @@ import searchView from './Views/searchView.js';
 import resultsView from './Views/resultsView.js';
 import movieView from './Views/movieView.js';
 import paginationView from './Views/paginationView.js';
+import videosView from './Views/videosView.js';
 import * as model from './model.js';
 
 
@@ -45,6 +46,19 @@ const movieContainer = document.querySelector('.movie')
 
 // src="https://image.tmdb.org/t/p/w92${result.poster_path}"
 
+const getVideo = async function (goToPage) {
+  try {
+    await model.loadVideo(model.state.movie.id);
+
+    console.log(model.state.movie.videos);
+
+    videosView.render(model.state.movie.videos);
+
+  } catch (err) {
+
+  }
+}
+
 const getSearchResult = async function () {
   try {
     // 1.get Search query
@@ -81,6 +95,10 @@ const getMovie = async function () {
 
     movieView.render(data);
 
+    // add Event listener to the load movie's video btn
+    videosView.renderSpinner;
+    videosView.addHandlerVideo(getVideo);
+
   } catch (err) {
     console.error(err);
     movieView.renderError(err.message);
@@ -98,14 +116,6 @@ const controlPagination = async function (goToPage) {
   paginationView.render(model.state.search);
 }
 
-const getVideo = async function (goToPage) {
-  try {
-
-
-  } catch (err) {
-
-  }
-}
 
 const ini = function () {
   movieView.addHandlerRender(getMovie);

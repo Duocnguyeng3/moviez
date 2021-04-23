@@ -45,8 +45,11 @@ class movieView extends View {
                     </p>
                 </div>
 
-                <div class="btn--text">
+                <div class="btn--text btn--load-video">
                     See trailer &rarr;
+                </div>
+                <div class="movie__video-container">
+                    
                 </div>
                 <a href="${movie.homepage}" class="movie__home-page">
                     Movie home page &rarr;

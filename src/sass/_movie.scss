@@ -121,3 +121,16 @@
     color:  $color-grey-dark-2;
   }
 }
+
+.movie__video-container {
+  margin: 2rem;
+  display: flex;
+  flex-wrap: wrap;
+}
+.movie__video {
+  width: 20rem;
+  height: 15rem;
+  &:not(:last-child) {
+    margin-right: 2rem;
+  }
+}

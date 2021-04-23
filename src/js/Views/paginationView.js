@@ -3,25 +3,25 @@ import icons from '../../img/icons.svg';
 
 
 class paginationView extends View {
-    _parentElement = document.querySelector('.pagination');
+  _parentElement = document.querySelector('.pagination');
 
-    addHandlerPage(handler) {
-        this._parentElement.addEventListener('click', function (e) {
-            const btn = e.target.closest('.btn--inline');
-            if (!btn) return;
-            const goToPage = +btn.dataset.goto;
-            handler(goToPage);
-        })
-    }
+  addHandlerPage(handler) {
+    this._parentElement.addEventListener('click', function (e) {
+      const btn = e.target.closest('.btn--inline');
+      if (!btn) return;
+      const goToPage = +btn.dataset.goto;
+      handler(goToPage);
+    })
+  }
 
-    _generateMarkup() {
-        const curPage = this._data.page;
-        const totalPages = this._data.totalPages;
+  _generateMarkup() {
+    const curPage = this._data.page;
+    const totalPages = this._data.totalPages;
 
-        // if on other page
-        if (curPage !== 1 && curPage < totalPages) {
-            return `
-        <button class="btn--inline pagination__btn--prev">
+    // if on other page
+    if (curPage !== 1 && curPage < totalPages) {
+      return `
+        <button data-goto="${curPage - 1}" class="btn--inline pagination__btn--prev">
             <svg class="search__icon">
               <use href="${icons}#icon-arrow-left"></use>
             </svg>
@@ -38,11 +38,11 @@ class paginationView extends View {
           </svg>
         </button>
             `
-        }
+    }
 
-        // if on the last page
-        if (curPage > 1 && curPage === totalPages) {
-            return `
+    // if on the last page
+    if (curPage > 1 && curPage === totalPages) {
+      return `
             <button data-goto="${curPage - 1}" class="btn--inline pagination__btn--prev">
                 <svg class="search__icon">
                     <use href="${icons}#icon-arrow-left"></use>
@@ -54,11 +54,11 @@ class paginationView extends View {
                 <span class="pagination__page--all">${totalPages}</span>
             </div>
             `
-        }
+    }
 
-        // if on the 1st page and there are other pages
-        if (curPage === 1 && curPage < totalPages) {
-            return `
+    // if on the 1st page and there are other pages
+    if (curPage === 1 && curPage < totalPages) {
+      return `
         <div class="pagination__page">
             <span class="pagination__page--current">${curPage}</span>/
             <span class="pagination__page--all">${totalPages}</span>
@@ -70,11 +70,11 @@ class paginationView extends View {
             </svg>
           </button>
         `
-        }
-
-        // if on the 1st page and NO others
-        return '';
     }
+
+    // if on the 1st page and NO others
+    return '';
+  }
 }
 
 export default new paginationView();
