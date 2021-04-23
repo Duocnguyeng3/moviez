@@ -41,7 +41,6 @@ export const loadSearchResult = async function (query = state.search.query, page
             }
         }).filter(result => result);
 
-        console.log(state.search.results);
     } catch (err) {
         console.log(err);
         throw err;
@@ -119,6 +118,14 @@ export const loadVideo = async function (id) {
     }
 }
 
+const persistBookmarks = () => {
+    try {
+        localStorage.setItem('bookmarks', JSON.stringify(state.bookmarks));
+    } catch (err) {
+        console.error(err, "localStorage disabled, can't use bookmarks");
+    }
+};
+
 export const addBookmark = function (movie) {
 
     // mark as bookmark
@@ -126,6 +133,8 @@ export const addBookmark = function (movie) {
 
     // add bookmark to array
     state.bookmarks.push(movie);
+
+    persistBookmarks();
 }
 
 export const deleteBookmark = function (id) {
@@ -138,7 +147,22 @@ export const deleteBookmark = function (id) {
 
     // mark curren movie as not bookmark
     if (state.movie.id === id) state.movie.bookmarked = false;
+
+    persistBookmarks();
+
 }
+
+const ini = function () {
+    const storage = localStorage.getItem('bookmarks');
+    if (storage) state.bookmarks = JSON.parse(storage);
+};
+
+ini();
+
+export const clearBookmarks = function () {
+    localStorage.clear('bookmarks');
+};
+// clearBookmarks();
 /*
 page: 1
 results: (20) [{…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}]

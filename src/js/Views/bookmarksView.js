@@ -2,6 +2,7 @@ import View from './View.js';
 
 class bookmarksView extends View {
     _parentElement = document.querySelector('.bookmarks__list');
+    _btnClearBm = document.querySelector('.btn--clear-bm');
     _errorMessage = `
     <div>
         <svg>
@@ -13,6 +14,9 @@ class bookmarksView extends View {
     </p>
     `;
 
+    addHandlerClearBookmark(handler) {
+        this._btnClearBm.addEventListener('click', handler);
+    }
 
     _generateMarkup() {
         return this._data.map(this._generateMarkupPreview).join('');

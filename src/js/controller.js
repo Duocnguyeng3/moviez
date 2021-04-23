@@ -126,10 +126,18 @@ const controlAddBookmark = function () {
   movieView.bookmarkButtonToggle();
 }
 
+const clearAllBookmark = function () {
+  model.clearBookmarks();
+  model.state.bookmarks = [];
+  bookmarksView.render(model.state.bookmarks);
+}
+
 const ini = function () {
   movieView.addHandlerRender(getMovie);
   searchView.addHandlerSearch(getSearchResult);
   paginationView.addHandlerPage(controlPagination);
   movieView.addHandlerAddBookmark(controlAddBookmark);
+  bookmarksView.render(model.state.bookmarks);
+  bookmarksView.addHandlerClearBookmark(clearAllBookmark);
 }
 ini();
