@@ -15,7 +15,7 @@ export const state = {
         results: [],
         page: 1
     },
-    bookmark: []
+    bookmarks: []
 }
 const getGenre = function (id) {
     const name = movieGenres.find(ele => ele.id === id).name;
@@ -40,6 +40,7 @@ export const loadSearchResult = async function (query = state.search.query, page
                 overview: result.overview
             }
         }).filter(result => result);
+
     } catch (err) {
         console.log(err);
         throw err;
@@ -91,6 +92,12 @@ export const loadMovie = async function (id) {
             voteAverage: data.vote_average,
             cast: cast
         };
+
+        // check if this movie is in bookmark array
+        if (state.bookmarks.some(bookmark => bookmark.id == id))
+            state.movie.bookmarked = true;
+        else state.movie.bookmarked = false;
+
     } catch (err) {
         console.log(err);
         throw err;
@@ -111,9 +118,51 @@ export const loadVideo = async function (id) {
     }
 }
 
+const persistBookmarks = () => {
+    try {
+        localStorage.setItem('bookmarks', JSON.stringify(state.bookmarks));
+    } catch (err) {
+        console.error(err, "localStorage disabled, can't use bookmarks");
+    }
+};
+
 export const addBookmark = function (movie) {
-    state.bookmark.push(movie);
+
+    // mark as bookmark
+    state.movie.bookmarked = true;
+
+    // add bookmark to array
+    state.bookmarks.push(movie);
+
+    persistBookmarks();
 }
+
+export const deleteBookmark = function (id) {
+
+    // find index of bookmark
+    const index = state.bookmarks.findIndex(el => el.id === id);
+
+    // delete that movie in bookmarks array
+    state.bookmarks.splice(index, 1);
+
+    // mark curren movie as not bookmark
+    if (state.movie.id === id) state.movie.bookmarked = false;
+
+    persistBookmarks();
+
+}
+
+const ini = function () {
+    const storage = localStorage.getItem('bookmarks');
+    if (storage) state.bookmarks = JSON.parse(storage);
+};
+
+ini();
+
+export const clearBookmarks = function () {
+    localStorage.clear('bookmarks');
+};
+// clearBookmarks();
 /*
 page: 1
 results: (20) [{…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}]

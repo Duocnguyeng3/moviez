@@ -11,7 +11,6 @@ class movieView extends View {
     }
     _generateMarkup() {
         const movie = this._data;
-
         return `
             <figure class="movie__fig">
                 <img src="${movie.backdrop}" alt="${movie.title} backdrop"
@@ -29,7 +28,7 @@ class movieView extends View {
                
                 <button class="btn--round movie__bookmark-btn">
                     <svg class="">
-                        <use href="${icons}#icon-bookmark-fill"></use>
+                        <use href="${icons}#icon-bookmark${movie.bookmarked ? '-fill' : ''}"></use>
                     </svg>
                 </button>
                 <div class="cast__container">
@@ -93,6 +92,18 @@ class movieView extends View {
             if (!btn) return;
             handler();
         })
+    }
+
+    bookmarkButtonToggle() {
+        const btn = this._parentElement.querySelector('.movie__bookmark-btn');
+        const bookmarkIcon = btn.querySelector('use');
+
+        // if SVG use link include "fill", delete it, otherwise add it
+        if (bookmarkIcon.getAttribute('href').includes('fill')) {
+            bookmarkIcon.setAttribute('href', `${bookmarkIcon.getAttribute('href').replace('icon-bookmark-fill', 'icon-bookmark')}`)
+        } else {
+            bookmarkIcon.setAttribute('href', `${bookmarkIcon.getAttribute('href').replace('icon-bookmark', 'icon-bookmark-fill')}`)
+        }
     }
 }
 

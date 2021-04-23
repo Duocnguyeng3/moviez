@@ -119,9 +119,17 @@ const controlPagination = async function (goToPage) {
 }
 
 const controlAddBookmark = function () {
-  model.addBookmark(model.state.movie);
-  console.log(model.state.bookmark);
-  bookmarksView.render(model.state.bookmark);
+  if (!model.state.movie.bookmarked) model.addBookmark(model.state.movie);
+  else model.deleteBookmark(model.state.movie.id);
+
+  bookmarksView.render(model.state.bookmarks);
+  movieView.bookmarkButtonToggle();
+}
+
+const clearAllBookmark = function () {
+  model.clearBookmarks();
+  model.state.bookmarks = [];
+  bookmarksView.render(model.state.bookmarks);
 }
 
 const ini = function () {
@@ -129,5 +137,7 @@ const ini = function () {
   searchView.addHandlerSearch(getSearchResult);
   paginationView.addHandlerPage(controlPagination);
   movieView.addHandlerAddBookmark(controlAddBookmark);
+  bookmarksView.render(model.state.bookmarks);
+  bookmarksView.addHandlerClearBookmark(clearAllBookmark);
 }
 ini();
