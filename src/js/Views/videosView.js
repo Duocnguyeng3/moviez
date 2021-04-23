@@ -2,7 +2,7 @@ import View from './View.js';
 
 class videoView extends View {
     _container = document.querySelector('.movie');
-
+    _errorMessage = 'There is no video for this movie, please try onother one 😥'
     // the parent element is not available on startup, until the movie is rendered, so we need to define it later
     _parentElement;
     _btnLoadVideo;

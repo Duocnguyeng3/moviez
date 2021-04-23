@@ -6,6 +6,7 @@ import 'regenerator-runtime/runtime';
 import 'core-js/stable';
 
 import noAvatarPath from '../img/no_avatar.png';
+import noPosterPath from '../img/no_poster.png';
 
 export const state = {
     movie: {},
@@ -29,8 +30,9 @@ export const loadSearchResult = async function (query = state.search.query, page
         state.search.totalPages = data.total_pages;
 
         state.search.results = data.results.map(result => {
-            if (result.poster_path && result.backdrop_path) return {
-                poster: `${BASE_IMG_URL}${POSTER_SIZE}${result.poster_path}`,
+            // if (result.poster_path && result.backdrop_path)
+            return {
+                poster: result.poster_path ? `${BASE_IMG_URL}${POSTER_SIZE}${result.poster_path}` : noPosterPath,
                 id: result.id,
                 genres: result.genre_ids.map(id => getGenre(id)),
                 title: result.title,
@@ -82,7 +84,7 @@ export const loadMovie = async function (id) {
             releaseDate: data.release_date,
             overview: data.overview,
             homepage: data.homepage,
-            backdrop: `${BASE_IMG_URL}${BACKDROP_SIZE}${data.backdrop_path}`,
+            backdrop: data.backdrop_path ? `${BASE_IMG_URL}${BACKDROP_SIZE}${data.backdrop_path}` : noPosterPath,
             title: data.title,
             cast: cast
         };

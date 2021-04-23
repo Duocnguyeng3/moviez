@@ -101,7 +101,7 @@ const getMovie = async function () {
 
   } catch (err) {
     console.error(err);
-    movieView.renderError(err.message);
+    movieView.renderError();
   }
 }
 
