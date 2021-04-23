@@ -5,10 +5,21 @@
   overflow-y: scroll;
   max-height: 127rem;
   background-color: $color-primary-dark;
+
+  @media only screen and (max-width: $bp-medium) {
+    // max-height: 55rem;
+    grid-column: 1/-1;
+  }
 }
 
 .results {
   list-style: none;
+
+  @media only screen and (max-width: $bp-medium) {
+    display: flex;
+    overflow-x: scroll;
+    grid-column: 1/-1;
+  }
 }
 
 .search-results::-webkit-scrollbar {
@@ -20,6 +31,11 @@
   padding: 0 3.5rem;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
+
+  @media only screen and (max-width: $bp-medium) {
+    max-width: 100vw;
+    grid-template-columns: 1fr 2fr 1fr;
+  }
 
   &__btn {
         &--prev {

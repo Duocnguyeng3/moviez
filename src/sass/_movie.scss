@@ -18,6 +18,8 @@
         background-image: $gradient;
         opacity: 0.5;
         }
+
+        
     }
   
   &__img {
@@ -94,6 +96,10 @@
   display: flex;
   font-size: 1.3rem;
 
+  @media only screen and (max-width: $bp-medium) {
+    min-width: 100%;
+  }
+
   &::-webkit-scrollbar {
     width: 0rem;
   }
@@ -134,10 +140,13 @@
   &::-webkit-scrollbar {
     width: 0rem;
   }
+  @media only screen and (max-width: $bp-medium) {
+    min-width: 100%;
+  }
 }
 .movie__video {
-  width: 20rem;
-  height: 15rem;
+  width: 40rem;
+  height: 25rem;
   &:not(:last-child) {
     margin-right: 2rem;
   }
