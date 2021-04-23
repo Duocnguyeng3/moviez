@@ -13,9 +13,9 @@ class videoView extends View {
 
     _generateMarkupVideo(video) {
         return `
-        <iframe class="movie__video" id="ytplayer" type="text/html" width="320" height="240"
+        <iframe allow="fullscreen" class="movie__video" id="ytplayer" type="text/html" width="320" height="240"
         src="https://www.youtube.com/embed/${video.key}?autoplay=0&origin=http://example.com"
-        frameborder="1"></iframe>
+        frameborder="0"></iframe>
         `
     }
 
