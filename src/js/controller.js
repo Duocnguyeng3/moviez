@@ -48,6 +48,7 @@ const movieContainer = document.querySelector('.movie')
 
 const getVideo = async function (goToPage) {
   try {
+    videosView.renderSpinner();
     await model.loadVideo(model.state.movie.id);
 
     console.log(model.state.movie.videos);
