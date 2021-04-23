@@ -61,8 +61,10 @@ class movieView extends View {
     _generateMarkupCast(cast) {
         return `
         <li class="cast__item">
-        <img src="${cast.profileImg}"
-            alt="${cast.name}" class="cast__img">
+        <a href="https://www.google.com/search?q=${cast.name.split(' ').join('+')}">
+            <img src="${cast.profileImg}"
+                alt="${cast.name}" class="cast__img">
+        </a>
         <div class="cast__name">
             ${cast.name}
         </div>
