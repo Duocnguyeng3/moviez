@@ -2,7 +2,17 @@ import View from './View.js';
 
 class bookmarksView extends View {
     _parentElement = document.querySelector('.bookmarks__list');
-    _errorMessage = 'You have no bookmark';
+    _errorMessage = `
+    <div>
+        <svg>
+            <use href="src/img/icons.svg#icon-smile"></use>
+        </svg>
+    </div> 
+    <p>
+        No bookmarks yet. Find a nice movie and bookmark it :)
+    </p>
+    `;
+
 
     _generateMarkup() {
         return this._data.map(this._generateMarkupPreview).join('');

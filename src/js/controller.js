@@ -119,9 +119,11 @@ const controlPagination = async function (goToPage) {
 }
 
 const controlAddBookmark = function () {
-  model.addBookmark(model.state.movie);
-  console.log(model.state.bookmark);
-  bookmarksView.render(model.state.bookmark);
+  if (!model.state.movie.bookmarked) model.addBookmark(model.state.movie);
+  else model.deleteBookmark(model.state.movie.id);
+
+  bookmarksView.render(model.state.bookmarks);
+  movieView.bookmarkButtonToggle();
 }
 
 const ini = function () {
