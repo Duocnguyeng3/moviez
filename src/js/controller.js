@@ -8,6 +8,7 @@ import resultsView from './Views/resultsView.js';
 import movieView from './Views/movieView.js';
 import paginationView from './Views/paginationView.js';
 import videosView from './Views/videosView.js';
+import bookmarksView from './Views/bookmarksView';
 import * as model from './model.js';
 
 
@@ -72,7 +73,7 @@ const getSearchResult = async function () {
     const results = model.state.search.results;
 
     // Render the result base on infomation in model.js
-    const markup = resultsView.render(results);
+    resultsView.render(results);
 
     // Render the pagination
     model.state.search.page = 1;
@@ -117,10 +118,16 @@ const controlPagination = async function (goToPage) {
   paginationView.render(model.state.search);
 }
 
+const controlAddBookmark = function () {
+  model.addBookmark(model.state.movie);
+  console.log(model.state.bookmark);
+  bookmarksView.render(model.state.bookmark);
+}
 
 const ini = function () {
   movieView.addHandlerRender(getMovie);
   searchView.addHandlerSearch(getSearchResult);
   paginationView.addHandlerPage(controlPagination);
+  movieView.addHandlerAddBookmark(controlAddBookmark);
 }
 ini();

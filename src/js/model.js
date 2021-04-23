@@ -84,8 +84,11 @@ export const loadMovie = async function (id) {
             releaseDate: data.release_date,
             overview: data.overview,
             homepage: data.homepage,
+            poster: data.poster_path ? `${BASE_IMG_URL}${POSTER_SIZE}${data.poster_path}` : noPosterPath,
             backdrop: data.backdrop_path ? `${BASE_IMG_URL}${BACKDROP_SIZE}${data.backdrop_path}` : noPosterPath,
             title: data.title,
+            genres: data.genres.map(genre => genre.name),
+            voteAverage: data.vote_average,
             cast: cast
         };
     } catch (err) {
@@ -108,6 +111,9 @@ export const loadVideo = async function (id) {
     }
 }
 
+export const addBookmark = function (movie) {
+    state.bookmark.push(movie);
+}
 /*
 page: 1
 results: (20) [{…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}]

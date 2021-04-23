@@ -86,6 +86,14 @@ class movieView extends View {
         ).join('');
         return markup;
     }
+
+    addHandlerAddBookmark(handler) {
+        this._parentElement.addEventListener('click', function (e) {
+            const btn = e.target.closest('.movie__bookmark-btn');
+            if (!btn) return;
+            handler();
+        })
+    }
 }
 
 export default new movieView();
