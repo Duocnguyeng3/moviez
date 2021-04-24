@@ -239,6 +239,12 @@
       font-weight: 600;
     }
   }
+
+  .message--search {
+    @media only screen and (max-width: $bp-medium) {
+      display: none;
+    }
+  }
   
   .movie__bookmark-btn {
     position: absolute;

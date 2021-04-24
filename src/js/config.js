@@ -1,4 +1,4 @@
-export const POSTER_SIZE = '154';
+export const POSTER_SIZE = '342'; // 154 185 342
 export const BACKDROP_SIZE = '780';
 export const CAST_SIZE = '92';
 export const CAST_NUMBER = 20;

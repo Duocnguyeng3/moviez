@@ -3,7 +3,7 @@
     flex-wrap: wrap;
     font-size: 2rem;
     overflow: hidden;
-    background-color: #1d1a26;
+    background-color: $color-primary-dark;
 
     @media only screen and (max-width: $bp-medium) {
       min-width: 25rem;
@@ -97,6 +97,7 @@
   font-size: 1.3rem; 
   
   @media only screen and (max-width: $bp-medium) {
+    height: 0;
     display: none;
     }
 }

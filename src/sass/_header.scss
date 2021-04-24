@@ -2,8 +2,8 @@
   grid-area: head;
   background-image: linear-gradient(
       to top left,
-      #693e40,
-      #13272b
+      $color-grad-1,
+      $color-grad-2
     );
   display: flex;
   align-items: center;
