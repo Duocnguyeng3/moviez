@@ -135,12 +135,17 @@
     z-index: 10;
     width: 40rem;
     background-color: $color-primary-dark;
-    box-shadow: 0 0.8rem 5rem 2rem rgba($color-grey-dark-1, 0.1);
+    box-shadow: 0 0.8rem 5rem 2rem rgba($color-grey-dark-1, 0.3);
   
     visibility: hidden;
     opacity: 0;
     transition: all 0.5s 0.2s;
-  
+    
+    @media only screen and (max-width: $bp-medium) {
+      max-height: 80rem;
+      overflow-y: scroll;
+    }
+
     svg {
       fill: #fff;
     }

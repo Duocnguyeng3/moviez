@@ -68,6 +68,9 @@ $bp-smallest: 31.25em; // 500px
       'head head'
       'list recipe';
   
+    @media only screen and (max-width: $bp-large) {
+      grid-template-columns: 3fr 5fr;
+    }
     @media only screen and (max-width: $bp-medium) {
       grid-template-columns: 1fr;
       grid-template-rows: auto auto minmax(100rem, auto);

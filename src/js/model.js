@@ -1,4 +1,4 @@
-import { BASE_URL, API_KEY, BASE_IMG_URL, POSTER_SIZE, BACKDROP_SIZE, CAST_SIZE, CAST_NUMBER } from './config.js';
+import { BASE_URL, API_KEY, BASE_IMG_URL, POSTER_SIZE, BACKDROP_SIZE, CAST_SIZE, CAST_NUMBER, VIDEO_NUMBER } from './config.js';
 import { getJSON } from './helpers.js';
 
 import { async } from "regenerator-runtime"
@@ -110,8 +110,9 @@ export const loadVideo = async function (id) {
         const data = await getJSON(`${BASE_URL}/movie/${id}/videos?api_key=${API_KEY}`);
         const videos = data.results;
 
-        state.movie.videos = videos.filter(video => video.site === "YouTube");
-
+        const getYoutubeVideo = videos.filter(video => video.site === "YouTube");
+        state.movie.videos = getYoutubeVideo.length > VIDEO_NUMBER ? getYoutubeVideo.slice(0, VIDEO_NUMBER) : getYoutubeVideo;
+        // state.movie.videos
     } catch (err) {
         console.log(err);
         throw err;

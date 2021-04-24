@@ -1,6 +1,11 @@
 .movie {
     background-color: $color-primary-dark;
     color: $color-grey-light-1;
+
+    @media only screen and (max-width: $bp-small) {
+      min-width: 20rem;
+    }
+
   &__fig {
     height: 42rem;
     position: relative;
@@ -96,10 +101,14 @@
   display: flex;
   font-size: 1.3rem;
 
+  @media only screen and (max-width: $bp-large) {
+    max-width: 60rem;
+  }
+
   @media only screen and (max-width: $bp-medium) {
     min-width: 100%;
   }
-
+  
   &::-webkit-scrollbar {
     width: 0rem;
   }
@@ -140,6 +149,11 @@
   &::-webkit-scrollbar {
     width: 0rem;
   }
+
+  @media only screen and (max-width: $bp-large) {
+    max-width: 60rem;
+  }
+  
   @media only screen and (max-width: $bp-medium) {
     min-width: 100%;
   }
