@@ -8,7 +8,6 @@
 
   grid-column: 1/2;
   @media only screen and (max-width: $bp-medium) {
-    max-height: 52.5rem;
     grid-column: 1/-1;
     padding: 0 0;
   }
@@ -18,6 +17,7 @@
   list-style: none;
 
   @media only screen and (max-width: $bp-medium) {
+    max-height: 45rem;
     display: flex;
     overflow-x: scroll;
     padding-top: 1rem;

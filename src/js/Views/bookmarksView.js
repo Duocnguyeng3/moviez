@@ -1,9 +1,9 @@
 import View from './View.js';
 
 class bookmarksView extends View {
-    _parentElement = document.querySelector('.bookmarks__list');
-    _btnClearBm = document.querySelector('.btn--clear-bm');
-    _errorMessage = `
+  _parentElement = document.querySelector('.bookmarks__list');
+  _btnClearBm = document.querySelector('.btn--clear-bm');
+  _errorMessage = `
     <div>
         <svg>
             <use href="src/img/icons.svg#icon-smile"></use>
@@ -14,19 +14,19 @@ class bookmarksView extends View {
     </p>
     `;
 
-    addHandlerClearBookmark(handler) {
-        this._btnClearBm.addEventListener('click', handler);
-    }
+  addHandlerClearBookmark(handler) {
+    this._btnClearBm.addEventListener('click', handler);
+  }
 
-    _generateMarkup() {
-        return this._data.map(this._generateMarkupPreview).join('');
-    }
+  _generateMarkup() {
+    return this._data.map(this._generateMarkupPreview).join('');
+  }
 
-    _generateMarkupPreview(result) {
-        return `
+  _generateMarkupPreview(result) {
+    return `
     <li class="preview">
     <a class="preview__link" href="#${result.id}">
-      <figure class="preview__figure">
+      <figure class="preview__figure preview__figure--bookmark">
         <img class="preview__poster" src=${result.poster} />
       </figure>
       <div class="preview__description">
@@ -38,7 +38,7 @@ class bookmarksView extends View {
     </a>
   </li>
     `
-    }
+  }
 }
 
 export default new bookmarksView();
